@@ -1,7 +1,7 @@
-select *
-from PortfolioProject..CovidDeaths
-where continent is not null
-order by 3, 4
+SELECT *
+FROM PortfolioProject..CovidDeaths
+WHERE continent IS NOT NULL
+ORDER BY 3, 4;
 
 --select *
 --from PortfolioProject..CovidVaccination
@@ -9,47 +9,47 @@ order by 3, 4
 
 -- Select Data that we are going to be using
 
-select location, date, total_cases, new_cases, total_deaths, population
-from PortfolioProject..CovidDeaths
-where continent is not null
-order by 1, 2
+SELECT location, date, total_cases, new_cases, total_deaths, population
+FROM PortfolioProject..CovidDeaths
+WHERE continent IS NOT NULL
+ORDER BY 1, 2;
 
 -- Looking at Total Cases vs Total Deaths
 -- Shows likelihood of dying if you contract covid in Russia
 
-select location, date, total_cases, total_deaths, (total_deaths/total_cases)*100 as DeathPercentage
-from PortfolioProject..CovidDeaths
-where continent is not null
-and location like '%russia%'
-order by 1, 2
+SELECT location, date, total_cases, total_deaths, (total_deaths/total_cases)*100 AS DeathPercentage
+FROM PortfolioProject..CovidDeaths
+WHERE continent IS NOT NULL
+AND location LIKE '%russia%'
+ORDER BY 1, 2;
 
 
 -- Looking at Total Cases vs Population
 -- Shows what percentage of population got Covid
 
-select location, date, population, total_cases, (total_cases/population)*100 as PercentPopulationInfected
-from PortfolioProject..CovidDeaths
-where continent is not null
-and location like '%russia%'
-order by 1, 2
+SELECT location, date, population, total_cases, (total_cases/population)*100 AS PercentPopulationInfected
+FROM PortfolioProject..CovidDeaths
+WHERE continent IS NOT NULL
+AND location LIKE '%russia%'
+ORDER BY 1, 2;
 
 -- Looking at countries with highest infection rate compared to population
 
-select location, population, max(total_cases) as HighestInfectionCount, max((total_cases/population))*100 as PercentPopulationInfected
-from PortfolioProject..CovidDeaths
+SELECT location, population, max(total_cases) AS HighestInfectionCount, max((total_cases/population))*100 AS PercentPopulationInfected
+FROM PortfolioProject..CovidDeaths
 --where location like '%russia%'
-where continent is not null
-group by location, population
-order by PercentPopulationInfected desc
+WHERE continent IS NOT NULL
+GROUP BY location, population
+ORDER BY PercentPopulationInfected DESC;
 
 -- Showing the countries with the highest death count per population
 
-select Location, max(cast (total_deaths as int)) as TotalDeathsCount
-from PortfolioProject..CovidDeaths
+SELECT Location, max(cast (total_deaths AS int)) AS TotalDeathsCount
+FROM PortfolioProject..CovidDeaths
 --where location like '%russia%'
-where continent is not null
-group by location, population
-order by TotalDeathsCount desc
+WHERE continent IS NOT NULL
+GROUP BY location, population
+ORDER BY TotalDeathsCount DESC;
 
 -- Let's break things out by continent
 
@@ -58,12 +58,12 @@ order by TotalDeathsCount desc
 
 -- Showing continents with the highest death count per population
 
-select Continent, max(cast (total_deaths as int)) as TotalDeathsCount
-from PortfolioProject..CovidDeaths
+SELECT Continent, max(cast (total_deaths AS int)) AS TotalDeathsCount
+FROM PortfolioProject..CovidDeaths
 --where location like '%russia%'
-where continent is not null
-group by Continent
-order by TotalDeathsCount desc
+WHERE continent IS NOT NULL
+GROUP BY Continent
+ORDER BY TotalDeathsCount DESC;
 
 
 
